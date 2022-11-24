@@ -2,6 +2,7 @@ package main;
 
 import baluni.filestorage.MyFileStorage;
 import baluni.filestorage.StorageConfig;
+import baluni.filestorage.StorageManager;
 import baluni.model.Fajl;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -62,6 +63,7 @@ public class GoogleFileStorage extends MyFileStorage{
     public static long usedSpace = 0;
 
     static {
+        StorageManager.initStorage(new GoogleFileStorage());
         try {
             service=init();
         } catch (GeneralSecurityException e) {
