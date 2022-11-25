@@ -797,10 +797,39 @@ public class GoogleFileStorage extends MyFileStorage{
             pageToken=result.getNextPageToken();
         }while(pageToken!=null);
 
-        for(File file:files)
-            System.out.println(file.getName());
+        List<Fajl> fajlovi = new ArrayList<>();
 
-        return null;
+        for(File file:files) {
+//            String fName = file.getName().substring(0, file.getName().indexOf('.'));
+            String fName = "";
+            String ext = "";
+
+            if(file.getName().contains(".")){
+                fName = file.getName().substring(0, file.getName().indexOf('.'));
+                ext = file.getFileExtension();
+            }else {
+                fName = file.getName();
+                for (String key : extensions.keySet()) {
+                    if (extensions.get(key).equals(file.getMimeType())) {
+                        ext = key;
+                        break;
+                    }
+                }
+            }
+
+            if(file.getFileExtension() == null)
+                ext = "folder";
+            else
+                ext = file.getFileExtension();
+
+            LocalDate dateCreated = toLocalDate(file.getCreatedTime());
+            LocalDate dateModified = toLocalDate(file.getModifiedTime());
+            long size = file.getSize();
+
+            fajlovi.add(new Fajl(fName, ext, file.getId(), dateCreated, dateModified, size));
+        }
+
+        return fajlovi;
     }
 
     @Override
@@ -856,7 +885,7 @@ public class GoogleFileStorage extends MyFileStorage{
             LocalDate dateModified = toLocalDate(file.getModifiedTime());
             long size = file.getSize();
 
-            fajlovi.add(new Fajl(fName, ext, id, dateCreated, dateModified, size));
+            fajlovi.add(new Fajl(fName, ext, file.getId(), dateCreated, dateModified, size));
         }
 
         return fajlovi;
