@@ -4,6 +4,7 @@ import baluni.model.Fajl;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -59,7 +60,7 @@ public class Main {
 
 
 //      jokina.createDirectories("1bjmpZyP8iNLSkgDfd5LB0K7c1uSycU6U","joksim{1..4}");
-//      jokina.fileUpload("1896Er-oOba66pRmjGBWrHOIyZ2WjZHWY",List.of(new Fajl("otter","jpg","C:\\Users\\Vid\\Documents\\otter.jpg\\")));
+//      jokina.fileUpload("1896Er-oOba66pRmjGBWrHOIyZ2WjZHWY", List.of(new Fajl("niko","folder","C:\\Users\\Vid\\Desktop\\niko")));
 //        System.out.println(JokinaQulClasa.usedSpace);
 //        jokina.createDir(".","vid");
 //        jokina.createDirectory(".","ogranicen",2);

@@ -386,6 +386,11 @@ public class GoogleFileStorage extends MyFileStorage{
         }
 
         for(Fajl fajl:list){
+            if(new java.io.File(fajl.getPath()).isDirectory()) {
+                System.out.println("Cannot upload directory");
+                continue;
+            }
+
             if(this.getStorageConfig().getForbiddenExtensions().contains(fajl.getExtension())){
                 continue;
             }
