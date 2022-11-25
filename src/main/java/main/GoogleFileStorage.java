@@ -673,7 +673,7 @@ public class GoogleFileStorage extends MyFileStorage{
         String pageToken = null;
         String driveExtension = extensions.get(extension);
 
-        String query = "'" + this.getSotragePath() + "' in parents and mimeType='" + driveExtension + "'";
+        String query = "'" + this.getSotragePath() + "' in parents and trashed=false and mimeType='" + driveExtension + "'";
 
         do{
             FileList result = null;
@@ -732,7 +732,7 @@ public class GoogleFileStorage extends MyFileStorage{
         if (id.isEmpty() || id.equals("."))
             id = this.getSotragePath();
 
-        String query = "'" + id + "' in parents and mimeType='" + driveExtension + "'";
+        String query = "'" + id + "' in parents and trashed=false and mimeType='" + driveExtension + "'";
 
         do{
             FileList result = null;
