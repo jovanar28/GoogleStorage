@@ -617,7 +617,14 @@ public class GoogleFileStorage extends MyFileStorage{
           //  System.out.println(filename + " " + file.getId() + " " + file.getMimeType() + " " + ext + " " + file.getCreatedTime());
             LocalDate creationTime = toLocalDate(file.getCreatedTime());
             LocalDate modificationTime = toLocalDate(file.getModifiedTime());
-            long fileSize = file.getSize();
+            long fileSize = 0;
+
+            try{
+                fileSize = file.getSize();
+            }catch (Exception e){
+                System.out.println("File has 0 bytes");
+            }
+
             resultList.add(new Fajl(filename,ext,file.getId(),creationTime,modificationTime,fileSize));
         }
         return resultList;

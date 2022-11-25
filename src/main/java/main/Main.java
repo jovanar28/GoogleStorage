@@ -1,5 +1,7 @@
 package main;
 
+import baluni.model.Fajl;
+
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Scanner;
@@ -9,47 +11,51 @@ public class Main {
         GoogleFileStorage jokina = new GoogleFileStorage();
         jokina.loadExtensions();
 
-
       jokina.createStorage("1bjmpZyP8iNLSkgDfd5LB0K7c1uSycU6U");
-
-        String line = "";
-
-        System.out.println(jokina.getStorageConfig().getStorageName());
-
-        do{
-            Scanner scanner = new Scanner(System.in);
-
-            System.out.printf("# ");
-            line = scanner.nextLine();
-
-            switch (line){
-                case "setSize":
-                    long storageSize = scanner.nextLong();
-                    jokina.getStorageConfig().setDefaultStorageSize(storageSize);
-                    break;
-                case "setName":
-                    String name = scanner.nextLine();
-                    jokina.getStorageConfig().setStorageName(name);
-                    break;
-                case "setExtensions":
-                    String extensions = scanner.nextLine();
-                    String[] data = extensions.split(",");
-
-                    for(String d : data) {
-//                        local.getStorageConfig().getForbiddenExtensions().add(d);
-                        if(!jokina.getStorageConfig().getForbiddenExtensions().contains(d))
-                            jokina.getStorageConfig().getForbiddenExtensions().add(d);
-                    }
-
-                    break;
-                case "config":
-                    jokina.saveStorageConfig(jokina.getSotragePath());
-                    break;
-                case "exit":
-                    System.out.println("Bad command");
-                    break;
-            }
-        }while(!line.equalsIgnoreCase("exit"));
+//      jokina.createDirectories("1TR_01uKnWXkp6et-QhF5dcr2YHvXkpCc","f{1..10}");
+        for(Fajl fajl : jokina.listFilesInDir("."))
+            System.out.println(fajl);
+//
+//      for(Fajl fajl : jokina.listFilesInDir("."))
+//          System.out.println(fajl);
+//        String line = "";
+//
+//        System.out.println(jokina.getStorageConfig().getStorageName());
+//
+//        do{
+//            Scanner scanner = new Scanner(System.in);
+//
+//            System.out.printf("# ");
+//            line = scanner.nextLine();
+//
+//            switch (line){
+//                case "setSize":
+//                    long storageSize = scanner.nextLong();
+//                    jokina.getStorageConfig().setDefaultStorageSize(storageSize);
+//                    break;
+//                case "setName":
+//                    String name = scanner.nextLine();
+//                    jokina.getStorageConfig().setStorageName(name);
+//                    break;
+//                case "setExtensions":
+//                    String extensions = scanner.nextLine();
+//                    String[] data = extensions.split(",");
+//
+//                    for(String d : data) {
+////                        local.getStorageConfig().getForbiddenExtensions().add(d);
+//                        if(!jokina.getStorageConfig().getForbiddenExtensions().contains(d))
+//                            jokina.getStorageConfig().getForbiddenExtensions().add(d);
+//                    }
+//
+//                    break;
+//                case "config":
+//                    jokina.saveStorageConfig(jokina.getSotragePath());
+//                    break;
+//                case "exit":
+//                    System.out.println("Bad command");
+//                    break;
+//            }
+//        }while(!line.equalsIgnoreCase("exit"));
 
 
 //      jokina.createDirectories("1bjmpZyP8iNLSkgDfd5LB0K7c1uSycU6U","joksim{1..4}");
