@@ -665,7 +665,7 @@ public class GoogleFileStorage extends MyFileStorage{
         String pageToken = null;
         String driveExtension = extensions.get(extension);
 
-        String query = "'root' in parents and mimeType='" + driveExtension + "'";
+        String query = "'" + this.getSotragePath() + "' in parents and mimeType='" + driveExtension + "'";
 
         do{
             FileList result = null;
@@ -777,7 +777,7 @@ public class GoogleFileStorage extends MyFileStorage{
         List<File>files=new ArrayList<>();
         String pageToken=null;
        // String driveName="";
-        String query="('root' in parents and mimeType!='application/vnd.google-apps.folder' and mimeType!='application/vnd.google-apps.shortcut') and name contains '"+ fileName+"'";
+        String query="('" + this.getSotragePath() + "' in parents and mimeType!='application/vnd.google-apps.folder' and mimeType!='application/vnd.google-apps.shortcut') and name contains '"+ fileName+"'";
 
         do{
             FileList result=null;
