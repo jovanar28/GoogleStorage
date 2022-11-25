@@ -391,7 +391,7 @@ public class GoogleFileStorage extends MyFileStorage{
                 continue;
             }
 
-            if(this.getStorageConfig().getForbiddenExtensions().contains(fajl.getExtension())){
+            if(this.getStorageConfig().getForbiddenExtensions().contains("."+fajl.getExtension())){
                 continue;
             }
 
