@@ -707,7 +707,7 @@ public class GoogleFileStorage extends MyFileStorage{
             }
             LocalDate dateCreated = toLocalDate(file.getCreatedTime());
             LocalDate dateModified = toLocalDate(file.getModifiedTime());
-            fajlovi.add(new Fajl(name, ext, this.getSotragePath(), dateCreated, dateModified, file.getSize()));
+            fajlovi.add(new Fajl(name, ext, file.getId(), dateCreated, dateModified, file.getSize()));
         }
 
         return fajlovi;
@@ -722,7 +722,7 @@ public class GoogleFileStorage extends MyFileStorage{
         String driveExtension = extensions.get(extension);
 
         if (id.isEmpty() || id.equals("."))
-            id = "root";
+            id = this.getSotragePath();
 
         String query = "'" + id + "' in parents and mimeType='" + driveExtension + "'";
 
@@ -766,7 +766,7 @@ public class GoogleFileStorage extends MyFileStorage{
             }
             LocalDate dateCreated = toLocalDate(file.getCreatedTime());
             LocalDate dateModified = toLocalDate(file.getModifiedTime());
-            fajlovi.add(new Fajl(name, ext, id, dateCreated, dateModified, file.getSize()));
+            fajlovi.add(new Fajl(name, ext, file.getId(), dateCreated, dateModified, file.getSize()));
         }
 
         return fajlovi;

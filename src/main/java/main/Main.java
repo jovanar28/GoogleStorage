@@ -13,7 +13,7 @@ public class Main {
 
       jokina.createStorage("1bjmpZyP8iNLSkgDfd5LB0K7c1uSycU6U");
 //      jokina.createDirectories("1TR_01uKnWXkp6et-QhF5dcr2YHvXkpCc","f{1..10}");
-        for(Fajl fajl : jokina.listFilesForName("config"))
+        for(Fajl fajl : jokina.listFilesForExtension(".","json"))
             System.out.println(fajl);
 //
 //      for(Fajl fajl : jokina.listFilesInDir("."))
