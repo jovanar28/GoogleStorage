@@ -537,10 +537,28 @@ public class GoogleFileStorage extends MyFileStorage{
 
             ByteArrayOutputStream bos = outputStream;
             bos.writeTo(outputLocation);
+
+            bos.close();
         }catch (GoogleJsonResponseException e){
             System.err.print("Unable to export file: " + e.getDetails());
         } catch (IOException e) {
             e.printStackTrace();
+        }finally{
+            if(outputStream != null){
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if(outputLocation != null){
+                try {
+                    outputLocation.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -563,7 +581,6 @@ public class GoogleFileStorage extends MyFileStorage{
            if(newFile!=null)
                 return true;
        }catch (Exception e){
-           e.printStackTrace();
            System.out.println("[-] rename: Cannot rename file " + fileId + " to " + newFileName);
        }
         return false;
@@ -590,7 +607,6 @@ public class GoogleFileStorage extends MyFileStorage{
                         .setPageToken(pageToken)
                         .execute();
             }catch (Exception e){
-                e.printStackTrace();
                 System.out.println("[-] listFilesInDir: Google Drive API error");
             }
             files.addAll(result.getFiles());
@@ -687,7 +703,7 @@ public class GoogleFileStorage extends MyFileStorage{
                         .setPageToken(pageToken)
                         .execute();
             }catch (IOException e){
-                e.printStackTrace();
+                System.out.println("Error with google drive response");
             }
 
             files.addAll(result.getFiles());
@@ -746,7 +762,7 @@ public class GoogleFileStorage extends MyFileStorage{
                         .setPageToken(pageToken)
                         .execute();
             }catch (IOException e){
-                e.printStackTrace();
+                System.out.println("Error with google drive response");
             }
 
             files.addAll(result.getFiles());
@@ -798,7 +814,7 @@ public class GoogleFileStorage extends MyFileStorage{
                         .execute();
 
             }catch (Exception e){
-                e.printStackTrace();
+                System.out.println("Error with google drive response");
             }
             files.addAll(result.getFiles());
             pageToken=result.getNextPageToken();
@@ -861,7 +877,7 @@ public class GoogleFileStorage extends MyFileStorage{
                         .execute();
 
             }catch (Exception e){
-                e.printStackTrace();
+                System.out.println("Error with google drive response");
             }
             files.addAll(result.getFiles());
             pageToken=result.getNextPageToken();
@@ -937,7 +953,7 @@ public class GoogleFileStorage extends MyFileStorage{
                         .setPageToken(pageToken)
                         .execute();
             }catch (Exception e){
-                e.printStackTrace();
+                System.out.println("Error with google drive response");
             }
             files.addAll(result.getFiles());
             pageToken=result.getNextPageToken();
@@ -991,7 +1007,7 @@ public class GoogleFileStorage extends MyFileStorage{
                         .setPageToken(pageToken)
                         .execute();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Error with google drive response");
             }
             files.addAll(result.getFiles());
             pageToken = result.getNextPageToken();
@@ -1096,7 +1112,6 @@ public class GoogleFileStorage extends MyFileStorage{
             DateTimeFormatter f=DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
             return LocalDate.parse(dt.toStringRfc3339(),f);
         }catch(Exception e){
-            e.printStackTrace();
             System.out.println("[-] toLocalDate: Cannot convert DateTime to LocalDate");
             return null;
         }
@@ -1115,17 +1130,19 @@ public class GoogleFileStorage extends MyFileStorage{
             }
         }
 
-        this.download(fileId, "C:\\Users\\Vid\\Desktop\\");
+
+
+        this.download(fileId, (Paths.get(System.getProperty("user.home"),"Desktop")).toString());
 
         try {
             ObjectMapper mapper = new ObjectMapper();
-            mapper.writeValue(Paths.get("C:\\Users\\Vid\\Desktop\\config.json").toFile(), this.getStorageConfig());
+            mapper.writeValue(Paths.get(System.getProperty("user.home"),"Desktop\\config.json").toFile(), this.getStorageConfig());
         } catch (Exception var3) {
-            var3.printStackTrace();
+            System.out.println("ObjectMapper problem!");
         }
 
         this.deleteFiles(List.of(new Fajl("config","json",fileId)));
 
-        this.fileUpload(rootPath, List.of(new Fajl("config","json","C:\\Users\\Vid\\Desktop\\config.json")));
+        this.fileUpload(rootPath, List.of(new Fajl("config","json",Paths.get(System.getProperty("user.home"),"Desktop\\config.json").toString())));
     }
 }
