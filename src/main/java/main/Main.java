@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws GeneralSecurityException, IOException {
         GoogleFileStorage jokina = new GoogleFileStorage();
-        jokina.loadExtensions();
+//        jokina.loadExtensions();
 
       jokina.createStorage("1bjmpZyP8iNLSkgDfd5LB0K7c1uSycU6U");
 //      jokina.createDirectories("1TR_01uKnWXkp6et-QhF5dcr2YHvXkpCc","f{1..10}");
