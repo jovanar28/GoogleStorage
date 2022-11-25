@@ -774,7 +774,6 @@ public class GoogleFileStorage extends MyFileStorage{
 
     @Override
     public List<Fajl> listFilesForName(String fileName) {
-
         List<File>files=new ArrayList<>();
         String pageToken=null;
        // String driveName="";
@@ -786,7 +785,7 @@ public class GoogleFileStorage extends MyFileStorage{
                 result=service.files().list()
                         .setQ(query)
                         .setSpaces("drive")
-                        .setFields("nextPageToken, files/name, files/id")
+                        .setFields("nextPageToken, files/*")
                         .setPageToken(pageToken)
                         .execute();
 
@@ -822,6 +821,9 @@ public class GoogleFileStorage extends MyFileStorage{
             else
                 ext = file.getFileExtension();
 
+            if(ext.equals("folder"))
+                continue;
+
             LocalDate dateCreated = toLocalDate(file.getCreatedTime());
             LocalDate dateModified = toLocalDate(file.getModifiedTime());
             long size = file.getSize();
@@ -834,7 +836,6 @@ public class GoogleFileStorage extends MyFileStorage{
 
     @Override
     public List<Fajl> listFilesForName(String id, String fileName) {
-
         List<File> files=new ArrayList<>();
         List<Fajl> fajlovi = new ArrayList<>();
 
@@ -880,6 +881,9 @@ public class GoogleFileStorage extends MyFileStorage{
                 ext = "folder";
             else
                 ext = file.getFileExtension();
+
+            if(ext.equals("folder"))
+                continue;
 
             LocalDate dateCreated = toLocalDate(file.getCreatedTime());
             LocalDate dateModified = toLocalDate(file.getModifiedTime());
