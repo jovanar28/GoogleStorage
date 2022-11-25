@@ -440,6 +440,9 @@ public class GoogleFileStorage extends MyFileStorage{
 
     @Override
     public void moveFiles(String fileId, String destination) {
+        if(destination.isEmpty() || destination.equals("."))
+            destination = this.getSotragePath();
+
         try {
             File file=service.files().get(fileId).setFields("name, id, parents, mimeType").execute();
             StringBuilder prevParents=new StringBuilder();
