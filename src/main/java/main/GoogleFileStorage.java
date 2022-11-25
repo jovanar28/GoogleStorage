@@ -64,12 +64,9 @@ public class GoogleFileStorage extends MyFileStorage{
 
     static {
         StorageManager.initStorage(new GoogleFileStorage());
-        loadExtensions();
         try {
             service=init();
-        } catch (GeneralSecurityException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (GeneralSecurityException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -77,7 +74,7 @@ public class GoogleFileStorage extends MyFileStorage{
     private static  Map<String,String> extensions = new HashMap<>();
     public static Map<String, String> pathsMap = new HashMap<>();
 
-    private static void loadExtensions(){
+    public void loadExtensions(){
         ObjectMapper mapper=new ObjectMapper();
         java.io.File fileObj=new java.io.File("src/main/resources/mimeTypes.json");
         try{
@@ -124,7 +121,7 @@ public class GoogleFileStorage extends MyFileStorage{
     @Override
     public boolean createStorage(String storagePath) {
         super.setSotragePath(storagePath);
-
+        loadExtensions();
         List<File> files = new ArrayList<>();
         String pageToken;
         do {
