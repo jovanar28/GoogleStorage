@@ -74,15 +74,19 @@ public class GoogleFileStorage extends MyFileStorage{
     private static  Map<String,String> extensions = new HashMap<>();
     public static Map<String, String> pathsMap = new HashMap<>();
 
-    public void loadExtensions(){
+    public void loadExtensions() throws IOException {
         ObjectMapper mapper=new ObjectMapper();
-        java.io.File fileObj=new java.io.File("src/main/resources/mimeTypes.json");
+        BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/mimeTypes.json")));
+
+//        java.io.File fileObj=new java.io.File("src/main/resources/mimeTypes.json");
         try{
-            extensions=mapper.readValue(fileObj, new TypeReference<Map<String, String>>(){});
+            extensions=mapper.readValue(br, new TypeReference<Map<String, String>>(){});
            // System.out.println("Extension name " +extensions.get(""));
 
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            br.close();
         }
     }
 
@@ -121,7 +125,11 @@ public class GoogleFileStorage extends MyFileStorage{
     @Override
     public boolean createStorage(String storagePath) {
         super.setSotragePath(storagePath);
-        loadExtensions();
+        try {
+            loadExtensions();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         List<File> files = new ArrayList<>();
         String pageToken;
         do {
