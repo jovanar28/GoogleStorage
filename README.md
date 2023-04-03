@@ -1,5 +1,5 @@
 # GoogleFileStorage
-This is an implementation of an API specification which can be found here *.
+This is an implementation of an API specification which can be found here [link](https://github.com/jovanar28/FileStorageAPI).
 
 Fully written in java and deployed as a maven package which can be used as a dependency. Along with the LocalStorage implementation which is also deployed as a maven dependency it's integrated inside a client application which supports managing both local and google file storage.
 
